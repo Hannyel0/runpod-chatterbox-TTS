@@ -1,5 +1,6 @@
 chatterbox-tts
 runpod
 torchaudio
+torchvision
 numpy
 scipy
