@@ -10,7 +10,7 @@ endpoint = runpod.Endpoint(os.getenv("RUNPOD_ENDPOINT_ID"))
 
 result = endpoint.run_sync({
     "input": {
-        "text": "Hola, esto es una prueba de síntesis de voz.",
+        "text": "Hola como esta?",
         "language_id": "es"
     }
 }, timeout=120)
