@@ -8,13 +8,12 @@ RUN apt-get update && apt-get install -y \
     libsndfile1 \
     && rm -rf /var/lib/apt/lists/*
 
+# Remove pre-installed torch packages to avoid version conflicts
+RUN pip uninstall -y torch torchvision torchaudio
+
 # Install Python deps
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-
-# enable these lines if you wanna download the model at build time
-# COPY download_model.py .
-# RUN python download_model.py
 
 COPY handler.py .
 
