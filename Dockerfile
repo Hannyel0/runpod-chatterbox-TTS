@@ -12,9 +12,9 @@ RUN apt-get update && apt-get install -y \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Pre-download model into image (crucial for cold start)
-COPY download_model.py .
-RUN python download_model.py
+# enable these lines if you wanna download the model at build time
+# COPY download_model.py .
+# RUN python download_model.py
 
 COPY handler.py .
 
