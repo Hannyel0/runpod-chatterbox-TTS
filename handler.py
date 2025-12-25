@@ -15,6 +15,7 @@ from chatterbox.mtl_tts import ChatterboxMultilingualTTS
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 MODEL = ChatterboxMultilingualTTS.from_pretrained(device=DEVICE)
 print(f"Model loaded on {DEVICE}")
+DEFAULT_VOICE_PATH = "/app/voices/voice-sport-spanish-2.mp3"
 
 # Max characters per chunk (Chatterbox works best with shorter segments)
 MAX_CHUNK_LENGTH = 250
@@ -141,8 +142,13 @@ def handler(job):
         # Handle reference audio for voice cloning
         audio_prompt_path = None
         if reference_audio_b64:
+            # User provided custom reference audio
             temp_audio_path = decode_audio_to_tempfile(reference_audio_b64)
             audio_prompt_path = temp_audio_path
+        elif os.path.exists(DEFAULT_VOICE_PATH):
+            # Use baked-in default voice
+            audio_prompt_path = DEFAULT_VOICE_PATH
+            print(f"Using default voice: {DEFAULT_VOICE_PATH}")
         
         # Split text into chunks
         chunks = split_text_into_chunks(text)

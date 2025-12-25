@@ -15,6 +15,9 @@ RUN pip uninstall -y torch torchvision torchaudio
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Copy voice reference files
+COPY voices/ /app/voices/
+
 COPY handler.py .
 
 CMD ["python", "-u", "handler.py"]
